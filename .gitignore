@@ -1,0 +1,45 @@
+# ignore everything
+*
+
+# except...
+# this file
+!.gitignore
+
+# github files
+!.github
+!.github/**
+
+# selected configs
+!config
+
+# kubejs
+!kubejs
+!kubejs/assets
+!kubejs/assets/**
+!kubejs/config
+!kubejs/config/client.properties
+!kubejs/startup_scripts
+!kubejs/startup_scripts/*
+
+# basics
+!LICENSE
+!README.md
+
+# modlist
+!modlist.md
+
+# changelogs
+!changelogs
+!changelogs/*.md
+
+# server utilities
+!clientmods.txt
+!manifest.json
+!modcache.json
+!overrides.txt
+!pack.json
+!serverdata
+!serverdata/**
+!scripts
+!scripts/*
+!tokens-example.json
