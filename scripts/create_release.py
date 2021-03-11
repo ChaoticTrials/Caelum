@@ -5,6 +5,7 @@ import os
 import shutil
 import subprocess
 from urllib.request import Request, urlopen
+import urllib.parse
 
 import gitignore_parser
 
@@ -112,7 +113,8 @@ def createServerZip(manifest, gitignore):
     print('Create server ModList')
     clientmods = []
     with open('clientmods.txt') as file:
-        clientmods = [int(x.strip()) for x in file.read().split('\n')]
+        if file.read() != "":
+            clientmods = [int(x.strip()) for x in file.read().split('\n')]
     with open(targetDir + os.path.sep + 'server.txt', mode='w') as file:
         mcv = manifest['minecraft']['version']
         mlv: str = manifest['minecraft']['modLoaders'][0]['id']
@@ -187,11 +189,11 @@ def uploadToGithub(token, manifest):
     release_id = json.loads(urlopen(create_release).read())['id']
 
     print('Upload CurseForge pack')
-    uploadFileToRelease(token, release_id, manifest, 'application/zip', f'[Client] {modpack_name}', 'zip',
+    uploadFileToRelease(token, release_id, manifest, 'application/zip', urllib.parse.quote(f'[Client] {modpack_name}'), 'zip',
                         os.path.join('build', 'curseforge.zip'))
 
     print('Upload Server zip')
-    uploadFileToRelease(token, release_id, manifest, 'application/zip', f'[Server] {modpack_name}', 'zip',
+    uploadFileToRelease(token, release_id, manifest, 'application/zip', urllib.parse.quote(f'[Server] {modpack_name}'), 'zip',
                         os.path.join('build', 'server.zip'))
 
 
